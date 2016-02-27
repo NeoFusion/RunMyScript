@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">RunMyScript</string>
+    <string name="action_add">Add</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_copy">Create a copy</string>
+    <string name="action_import">Import</string>
+    <string name="action_export">Export</string>
+    <string name="action_clear">Clear all</string>
+    <string name="action_about">About</string>
+    <string name="dialog_edit_name">Name</string>
+    <string name="dialog_edit_command">Command</string>
+    <string name="dialog_edit_path">Path to script</string>
+    <string name="dialog_edit_checkbox">Run as SU</string>
+    <string name="dialog_edit_radio_single">Single command</string>
+    <string name="dialog_edit_radio_path">Path to file</string>
+    <string name="dialog_run_message">Run this script?</string>
+    <string name="dialog_delete_message">Delete this script?</string>
+    <string name="dialog_copy_message">Copy this script?</string>
+    <string name="dialog_export_message">Export all items to file?</string>
+    <string name="dialog_choose_file_message">File to import</string>
+    <string name="dialog_clear_message">Clear all items?</string>
+    <string name="dialog_clear_description">This action will delete all items in the list. Be sure you have a backup (use export action in menu).</string>
+    <string name="dialog_clear_confirm_message">Type \'%1$s\' to continue</string>
+    <string name="button_save">Save</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="button_copy">Copy</string>
+    <string name="button_delete">Delete</string>
+    <string name="button_export">Export</string>
+    <string name="button_ok">OK</string>
+    <string name="button_run">Run</string>
+    <string name="about_title">About RunMyScript</string>
+    <string name="about_text">RunMyScript 1.3.0\n© NeoFusion, 2013&#8211;2016</string>
+    <string name="empty_field_message">Empty values are not allowed!</string>
+    <string name="code_mismatch_message">Code does not match!</string>
+    <string name="max_message">This value is too long. It should have %1$d characters or less</string>
+    <string name="message_export_finished">Export to file \'%1$s\' was successfully finished</string>
+    <string name="message_export_error">Export error: %1$s</string>
+    <string name="message_import_finished">Import was successfully finished</string>
+    <string name="message_import_error">Import error: %1$s</string>
+    <string name="error_xml_serialize">XML serialization error!</string>
+    <string name="error_xml_parse">XML parsing error!</string>
+    <string name="error_running_exec">Execution error!</string>
+    <string name="error_external_storage_access">External storage is not available!</string>
+    <string name="error_creating_folder">Can not create backup folder!</string>
+    <string name="error_folder_not_found">Backup folder not found!</string>
+    <string name="error_files_not_found">XML files not found!</string>
+    <string name="error_file_not_found">Selected XML file not found!</string>
+    <string name="error_file_not_chosen">XML file not chosen!</string>
+    <string name="error_file_exists">File %1$s already exists</string>
+    <string name="error_backup">Backup error!</string>
+    <string name="error_database">Database error!</string>
+    <string name="error_unknown">Unknown error!</string>
+    <string name="empty_list">List is empty</string>
+    <string name="nothing">Nothing to display</string>
+    <string name="permission_available_storage_import">Storage Permission has been granted. Items can now be imported from XML file.</string>
+    <string name="permission_available_storage_export">Storage Permission has been granted. Items can now be exported to XML file.</string>
+    <string name="permission_storage_import_rationale">Storage permission is needed to import items from XML file.</string>
+    <string name="permission_storage_export_rationale">Storage permission is needed to export items to XML file.</string>
+    <string name="permissions_not_granted">Permissions were not granted.</string>
+
+</resources>

@@ -1,0 +1,120 @@
+package neofusion.runmyscript.fragment;
+
+import android.database.SQLException;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.widget.TextView;
+
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import neofusion.runmyscript.R;
+import neofusion.runmyscript.backup.BackupException;
+import neofusion.runmyscript.loader.ImportLoader;
+import neofusion.runmyscript.model.ImportResult;
+
+public class ImportFragment extends Fragment implements LoaderManager.LoaderCallbacks<ImportResult> {
+    private static final String ARG_FILE = "file";
+
+    private String mFile;
+    private TextView mTextMessage;
+    private View mProgressContainer;
+
+    public ImportFragment() {
+    }
+
+    public static ImportFragment newInstance(String file) {
+        ImportFragment fragment = new ImportFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_FILE, file);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mFile = getArguments().getString(ARG_FILE);
+        }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_progress, container, false);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        View root = getView();
+        if (root == null) {
+            throw new IllegalStateException("Content view not yet created");
+        }
+        mProgressContainer = root.findViewById(R.id.progressContainer);
+        mTextMessage = (TextView) root.findViewById(R.id.message);
+        setTextShown(false, null);
+        getLoaderManager().initLoader(0, null, this);
+    }
+
+    private void setTextShown(boolean shown, String text) {
+        if (shown) {
+            mTextMessage.setText(text);
+            mProgressContainer.startAnimation(AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_out));
+            mTextMessage.startAnimation(AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_in));
+            mProgressContainer.setVisibility(View.GONE);
+            mTextMessage.setVisibility(View.VISIBLE);
+        } else {
+            mTextMessage.setText("");
+            mProgressContainer.startAnimation(AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_in));
+            mTextMessage.startAnimation(AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_out));
+            mProgressContainer.setVisibility(View.VISIBLE);
+            mTextMessage.setVisibility(View.GONE);
+        }
+    }
+
+    public boolean hasRunningLoaders() {
+        return getLoaderManager().hasRunningLoaders();
+    }
+
+    @Override
+    public Loader<ImportResult> onCreateLoader(int id, Bundle args) {
+        return new ImportLoader(getActivity(), mFile);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<ImportResult> loader, ImportResult data) {
+        if (data.isSuccess()) {
+            setTextShown(true, getString(R.string.message_import_finished));
+        } else {
+            String errorMessage;
+            Exception e = data.getException();
+            if (e instanceof FileNotFoundException) {
+                errorMessage = getString(R.string.error_file_not_found);
+            } else if (e instanceof XmlPullParserException) {
+                errorMessage = getString(R.string.error_xml_parse);
+            } else if (e instanceof SQLException) {
+                errorMessage = getString(R.string.error_database);
+            } else if (e instanceof IOException) {
+                errorMessage = e.getMessage();
+            } else if (e instanceof BackupException) {
+                errorMessage = e.getMessage();
+            } else {
+                errorMessage = getString(R.string.error_unknown);
+            }
+            setTextShown(true, String.format(getString(R.string.message_import_error), errorMessage));
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<ImportResult> loader) {
+    }
+}
