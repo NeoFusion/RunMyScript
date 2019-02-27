@@ -23,6 +23,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ListFragment;
@@ -97,9 +99,6 @@ public class ScriptItemListFragment extends ListFragment implements LoaderManage
         }
     };
 
-    public ScriptItemListFragment() {
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -132,7 +131,7 @@ public class ScriptItemListFragment extends ListFragment implements LoaderManage
         }
         mListProgressContainer = mRoot.findViewById(R.id.listProgressContainer);
         mListContainer = mRoot.findViewById(R.id.listContainer);
-        mList = (ListView) mListContainer.findViewById(android.R.id.list);
+        mList = mListContainer.findViewById(android.R.id.list);
         mScriptItemDataSource = new ScriptItemDataSource(getActivity());
         mAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1);
         setListAdapter(mAdapter);
@@ -471,7 +470,7 @@ public class ScriptItemListFragment extends ListFragment implements LoaderManage
         }
     }
 
-    public void updateList() {
+    private void updateList() {
         setItemListShown(false);
         Loader loader = getLoaderManager().getLoader(0);
         if (loader != null && loader.isStarted()) {
@@ -479,13 +478,14 @@ public class ScriptItemListFragment extends ListFragment implements LoaderManage
         }
     }
 
+    @NonNull
     @Override
-    public Loader<LoadResult> onCreateLoader(int id, Bundle args) {
+    public Loader<LoadResult> onCreateLoader(int id, @Nullable Bundle args) {
         return new DatabaseLoader(getActivity());
     }
 
     @Override
-    public void onLoadFinished(Loader<LoadResult> loader, LoadResult data) {
+    public void onLoadFinished(@NonNull Loader<LoadResult> loader, LoadResult data) {
         if (data.isSuccess()) {
             int position = mList.getFirstVisiblePosition();
             View v = mList.getChildAt(0);
@@ -501,7 +501,7 @@ public class ScriptItemListFragment extends ListFragment implements LoaderManage
     }
 
     @Override
-    public void onLoaderReset(Loader<LoadResult> loader) {
+    public void onLoaderReset(@NonNull Loader<LoadResult> loader) {
     }
 
     public interface OnFragmentInteractionListener {

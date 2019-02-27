@@ -18,6 +18,7 @@ package neofusion.runmyscript.fragment;
 
 import android.database.SQLException;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -44,9 +45,6 @@ public class ImportFragment extends Fragment implements LoaderManager.LoaderCall
     private TextView mTextMessage;
     private View mProgressContainer;
 
-    public ImportFragment() {
-    }
-
     public static ImportFragment newInstance(String file) {
         ImportFragment fragment = new ImportFragment();
         Bundle args = new Bundle();
@@ -64,7 +62,7 @@ public class ImportFragment extends Fragment implements LoaderManager.LoaderCall
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_progress, container, false);
     }
 
@@ -76,7 +74,7 @@ public class ImportFragment extends Fragment implements LoaderManager.LoaderCall
             throw new IllegalStateException("Content view not yet created");
         }
         mProgressContainer = root.findViewById(R.id.progressContainer);
-        mTextMessage = (TextView) root.findViewById(R.id.message);
+        mTextMessage = root.findViewById(R.id.message);
         setTextShown(false, null);
         getLoaderManager().initLoader(0, null, this);
     }
@@ -101,13 +99,14 @@ public class ImportFragment extends Fragment implements LoaderManager.LoaderCall
         return getLoaderManager().hasRunningLoaders();
     }
 
+    @NonNull
     @Override
     public Loader<ImportResult> onCreateLoader(int id, Bundle args) {
         return new ImportLoader(getActivity(), mFile);
     }
 
     @Override
-    public void onLoadFinished(Loader<ImportResult> loader, ImportResult data) {
+    public void onLoadFinished(@NonNull Loader<ImportResult> loader, ImportResult data) {
         if (data.isSuccess()) {
             setTextShown(true, getString(R.string.message_import_finished));
         } else {
@@ -131,6 +130,6 @@ public class ImportFragment extends Fragment implements LoaderManager.LoaderCall
     }
 
     @Override
-    public void onLoaderReset(Loader<ImportResult> loader) {
+    public void onLoaderReset(@NonNull Loader<ImportResult> loader) {
     }
 }

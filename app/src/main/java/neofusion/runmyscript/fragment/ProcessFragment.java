@@ -17,6 +17,8 @@
 package neofusion.runmyscript.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -42,9 +44,6 @@ public class ProcessFragment extends Fragment implements LoaderManager.LoaderCal
     private View mEmptyView;
     private TextView mTextView;
 
-    public ProcessFragment() {
-    }
-
     public static ProcessFragment newInstance(String[] cmd) {
         ProcessFragment fragment = new ProcessFragment();
         Bundle args = new Bundle();
@@ -62,8 +61,9 @@ public class ProcessFragment extends Fragment implements LoaderManager.LoaderCal
         setHasOptionsMenu(true);
     }
 
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_process, container, false);
     }
 
@@ -74,7 +74,7 @@ public class ProcessFragment extends Fragment implements LoaderManager.LoaderCal
         if (root == null) {
             throw new IllegalStateException("Content view not yet created");
         }
-        mTextView = (TextView) root.findViewById(R.id.textResult);
+        mTextView = root.findViewById(R.id.textResult);
         mResultContainer = root.findViewById(R.id.resultContainer);
         mProgressContainer = root.findViewById(R.id.progressContainer);
         mEmptyView = root.findViewById(R.id.empty);
@@ -106,13 +106,14 @@ public class ProcessFragment extends Fragment implements LoaderManager.LoaderCal
         return getLoaderManager().hasRunningLoaders();
     }
 
+    @NonNull
     @Override
-    public Loader<ProcessResult> onCreateLoader(int id, Bundle args) {
+    public Loader<ProcessResult> onCreateLoader(int id, @Nullable Bundle args) {
         return new ProcessLoader(getActivity(), mCmd);
     }
 
     @Override
-    public void onLoadFinished(Loader<ProcessResult> loader, ProcessResult data) {
+    public void onLoadFinished(@NonNull Loader<ProcessResult> loader, ProcessResult data) {
         if (data.getSuccess()) {
             if (!data.getResult().isEmpty()) {
                 mEmptyView.setVisibility(View.GONE);
@@ -125,6 +126,6 @@ public class ProcessFragment extends Fragment implements LoaderManager.LoaderCal
     }
 
     @Override
-    public void onLoaderReset(Loader<ProcessResult> loader) {
+    public void onLoaderReset(@NonNull Loader<ProcessResult> loader) {
     }
 }

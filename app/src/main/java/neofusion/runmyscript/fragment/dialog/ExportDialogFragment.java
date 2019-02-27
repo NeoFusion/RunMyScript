@@ -27,9 +27,6 @@ import android.support.v7.app.AlertDialog;
 import neofusion.runmyscript.R;
 
 public class ExportDialogFragment extends DialogFragment {
-    public ExportDialogFragment() {
-    }
-
     public static ExportDialogFragment newInstance() {
         return new ExportDialogFragment();
     }

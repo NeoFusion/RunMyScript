@@ -37,9 +37,6 @@ public class ImportDialogFragment extends DialogFragment{
     private String[] mFileItems;
     private String mSelectedItem = "";
 
-    public ImportDialogFragment() {
-    }
-
     public static ImportDialogFragment newInstance(String[] fileItems) {
         ImportDialogFragment fragment = new ImportDialogFragment();
         Bundle args = new Bundle();
@@ -63,7 +60,7 @@ public class ImportDialogFragment extends DialogFragment{
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString(KEY_SELECTED_ITEM, mSelectedItem);
     }

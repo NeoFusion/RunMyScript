@@ -35,9 +35,6 @@ public class CopyScriptDialogFragment extends DialogFragment {
 
     private ScriptItem mScriptItem;
 
-    public CopyScriptDialogFragment() {
-    }
-
     public static CopyScriptDialogFragment newInstance(ScriptItem scriptItem) {
         CopyScriptDialogFragment fragment = new CopyScriptDialogFragment();
         Bundle args = new Bundle();

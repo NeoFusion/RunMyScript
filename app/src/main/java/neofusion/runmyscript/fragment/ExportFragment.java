@@ -18,6 +18,8 @@ package neofusion.runmyscript.fragment;
 
 import android.database.SQLException;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -38,15 +40,13 @@ public class ExportFragment extends Fragment implements LoaderManager.LoaderCall
     private TextView mTextMessage;
     private View mProgressContainer;
 
-    public ExportFragment() {
-    }
-
     public static ExportFragment newInstance() {
         return new ExportFragment();
     }
 
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_progress, container, false);
     }
 
@@ -58,7 +58,7 @@ public class ExportFragment extends Fragment implements LoaderManager.LoaderCall
             throw new IllegalStateException("Content view not yet created");
         }
         mProgressContainer = root.findViewById(R.id.progressContainer);
-        mTextMessage = (TextView) root.findViewById(R.id.message);
+        mTextMessage = root.findViewById(R.id.message);
         setTextShown(false, null);
         getLoaderManager().initLoader(0, null, this);
     }
@@ -83,13 +83,14 @@ public class ExportFragment extends Fragment implements LoaderManager.LoaderCall
         return getLoaderManager().hasRunningLoaders();
     }
 
+    @NonNull
     @Override
-    public Loader<ExportResult> onCreateLoader(int id, Bundle args) {
+    public Loader<ExportResult> onCreateLoader(int id, @Nullable Bundle args) {
         return new ExportLoader(getActivity());
     }
 
     @Override
-    public void onLoadFinished(Loader<ExportResult> loader, ExportResult data) {
+    public void onLoadFinished(@NonNull Loader<ExportResult> loader, ExportResult data) {
         if (data.isSuccess()) {
             String message = String.format(getString(R.string.message_export_finished), data.getPath());
             setTextShown(true, message);
@@ -110,6 +111,6 @@ public class ExportFragment extends Fragment implements LoaderManager.LoaderCall
     }
 
     @Override
-    public void onLoaderReset(Loader<ExportResult> loader) {
+    public void onLoaderReset(@NonNull Loader<ExportResult> loader) {
     }
 }

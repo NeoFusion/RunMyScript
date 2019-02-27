@@ -33,9 +33,6 @@ import neofusion.runmyscript.model.ScriptItem;
 public class AddScriptDialogFragment extends ScriptDialogFragment {
     public static final String TAG_ITEM = "add_script_item";
 
-    public AddScriptDialogFragment() {
-    }
-
     public static AddScriptDialogFragment newInstance() {
         return new AddScriptDialogFragment();
     }
@@ -66,7 +63,7 @@ public class AddScriptDialogFragment extends ScriptDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
         builder.setCancelable(false);
-        RadioGroup radioGroupType = (RadioGroup) view.findViewById(R.id.radioGroupType);
+        RadioGroup radioGroupType = view.findViewById(R.id.radioGroupType);
         initRadioGroupType(view);
         radioGroupType.check(R.id.radioSingle);
         builder.setPositiveButton(R.string.button_save, null);

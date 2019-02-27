@@ -27,9 +27,6 @@ import android.support.v7.app.AlertDialog;
 import neofusion.runmyscript.R;
 
 public class ClearDialogFragment extends DialogFragment {
-    public ClearDialogFragment() {
-    }
-
     public static ClearDialogFragment newInstance() {
         return new ClearDialogFragment();
     }

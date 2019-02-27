@@ -23,22 +23,22 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import neofusion.runmyscript.model.ScriptItem;
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+class DatabaseHelper extends SQLiteOpenHelper {
     private static DatabaseHelper sInstance;
     private static final String DATABASE_NAME = "runmyscript.db";
     private static final int DATABASE_VERSION = 4;
-    public static final String TABLE_NAME = "scriptitems";
-    public static final String COLUMN_ID = "_id";
-    public static final String COLUMN_NAME = "name";
-    public static final String COLUMN_PATH = "path";
-    public static final String COLUMN_TYPE = "type";
-    public static final String COLUMN_SU = "su";
+    static final String TABLE_NAME = "scriptitems";
+    static final String COLUMN_ID = "_id";
+    static final String COLUMN_NAME = "name";
+    static final String COLUMN_PATH = "path";
+    static final String COLUMN_TYPE = "type";
+    static final String COLUMN_SU = "su";
 
     private DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    public static synchronized DatabaseHelper getInstance(Context context) {
+    static synchronized DatabaseHelper getInstance(Context context) {
         if (sInstance == null) {
             sInstance = new DatabaseHelper(context.getApplicationContext());
         }

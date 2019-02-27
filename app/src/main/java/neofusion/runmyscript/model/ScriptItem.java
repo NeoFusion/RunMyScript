@@ -18,6 +18,7 @@ package neofusion.runmyscript.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 public class ScriptItem implements Parcelable {
     public static final int TYPE_SINGLE_COMMAND = 1;
@@ -93,6 +94,8 @@ public class ScriptItem implements Parcelable {
         return mSu;
     }
 
+    @NonNull
+    @Override
     public String toString() {
         return mName;
     }

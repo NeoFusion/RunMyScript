@@ -39,9 +39,6 @@ public class EditScriptDialogFragment extends ScriptDialogFragment {
 
     private ScriptItem mScriptItem;
 
-    public EditScriptDialogFragment() {
-    }
-
     public static EditScriptDialogFragment newInstance(ScriptItem scriptItem) {
         EditScriptDialogFragment fragment = new EditScriptDialogFragment();
         Bundle args = new Bundle();
@@ -80,11 +77,11 @@ public class EditScriptDialogFragment extends ScriptDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
         builder.setCancelable(false);
-        EditText name = (EditText) view.findViewById(R.id.editName);
-        EditText path = (EditText) view.findViewById(R.id.editPath);
-        RadioGroup radioGroupType = (RadioGroup) view.findViewById(R.id.radioGroupType);
+        EditText name = view.findViewById(R.id.editName);
+        EditText path = view.findViewById(R.id.editPath);
+        RadioGroup radioGroupType = view.findViewById(R.id.radioGroupType);
         initRadioGroupType(view);
-        CheckBox checkBoxSu = (CheckBox) view.findViewById(R.id.checkBoxSu);
+        CheckBox checkBoxSu = view.findViewById(R.id.checkBoxSu);
         name.setText(mScriptItem.getName());
         path.setText(mScriptItem.getPath());
         switch (mScriptItem.getType()) {

@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 import neofusion.runmyscript.model.ScriptItem;
 
-public class BackupXmlCreator {
+class BackupXmlCreator {
     public String create(ArrayList<ScriptItem> listItems) throws IOException {
         XmlSerializer serializer = Xml.newSerializer();
         StringWriter writer = new StringWriter();

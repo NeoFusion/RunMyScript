@@ -18,6 +18,7 @@ package neofusion.runmyscript.fragment.dialog;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
@@ -38,8 +39,8 @@ public class ScriptDialogFragment extends DialogFragment {
     private static final int ERROR_STATE_EMPTY = 1;
     private static final int ERROR_STATE_MAX = 2;
 
-    protected AlertDialog mDialog;
-    protected View.OnClickListener mPositiveButtonOnClickListener;
+    AlertDialog mDialog;
+    View.OnClickListener mPositiveButtonOnClickListener;
 
     private int mNameErrorState;
     private int mPathErrorState;
@@ -64,7 +65,7 @@ public class ScriptDialogFragment extends DialogFragment {
             Button positiveButton = mDialog.getButton(Dialog.BUTTON_POSITIVE);
             positiveButton.setOnClickListener(mPositiveButtonOnClickListener);
             if (mNameErrorState != ERROR_STATE_NONE) {
-                TextInputLayout nameLayout = (TextInputLayout) mDialog.findViewById(R.id.layoutName);
+                TextInputLayout nameLayout = mDialog.findViewById(R.id.layoutName);
                 switch (mNameErrorState) {
                     case ERROR_STATE_EMPTY:
                         nameLayout.setError(getString(R.string.empty_field_message));
@@ -77,7 +78,7 @@ public class ScriptDialogFragment extends DialogFragment {
                 }
             }
             if (mPathErrorState != ERROR_STATE_NONE) {
-                TextInputLayout pathLayout = (TextInputLayout) mDialog.findViewById(R.id.layoutPath);
+                TextInputLayout pathLayout = mDialog.findViewById(R.id.layoutPath);
                 switch (mPathErrorState) {
                     case ERROR_STATE_EMPTY:
                         pathLayout.setError(getString(R.string.empty_field_message));
@@ -93,18 +94,18 @@ public class ScriptDialogFragment extends DialogFragment {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(KEY_NAME_ERROR_STATE, mNameErrorState);
         outState.putInt(KEY_PATH_ERROR_STATE, mPathErrorState);
     }
 
-    protected void initRadioGroupType(final View view) {
-        RadioGroup radioGroupType = (RadioGroup) view.findViewById(R.id.radioGroupType);
+    void initRadioGroupType(final View view) {
+        RadioGroup radioGroupType = view.findViewById(R.id.radioGroupType);
         radioGroupType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                TextInputLayout pathLayout = (TextInputLayout) view.findViewById(R.id.layoutPath);
+                TextInputLayout pathLayout = view.findViewById(R.id.layoutPath);
                 switch (checkedId) {
                     case R.id.radioSingle:
                         pathLayout.setHint(getString(R.string.dialog_edit_command));
@@ -119,13 +120,13 @@ public class ScriptDialogFragment extends DialogFragment {
         });
     }
 
-    protected ScriptItem getAllFields() {
+    ScriptItem getAllFields() {
         boolean errors = false;
-        TextInputLayout nameLayout = (TextInputLayout) mDialog.findViewById(R.id.layoutName);
-        EditText nameText = (EditText) mDialog.findViewById(R.id.editName);
-        TextInputLayout pathLayout = (TextInputLayout) mDialog.findViewById(R.id.layoutPath);
-        EditText pathText = (EditText) mDialog.findViewById(R.id.editPath);
-        RadioGroup radioGroupType = (RadioGroup) mDialog.findViewById(R.id.radioGroupType);
+        TextInputLayout nameLayout = mDialog.findViewById(R.id.layoutName);
+        EditText nameText = mDialog.findViewById(R.id.editName);
+        TextInputLayout pathLayout = mDialog.findViewById(R.id.layoutPath);
+        EditText pathText = mDialog.findViewById(R.id.editPath);
+        RadioGroup radioGroupType = mDialog.findViewById(R.id.radioGroupType);
         int type = 0;
         if (radioGroupType.getCheckedRadioButtonId() != -1) {
             switch (radioGroupType.getCheckedRadioButtonId()) {
@@ -137,7 +138,7 @@ public class ScriptDialogFragment extends DialogFragment {
                     break;
             }
         }
-        CheckBox checkBoxSu = (CheckBox) mDialog.findViewById(R.id.checkBoxSu);
+        CheckBox checkBoxSu = mDialog.findViewById(R.id.checkBoxSu);
         String name = nameText.getText().toString();
         String path = pathText.getText().toString();
         int nameMaxLength = getResources().getInteger(R.integer.name_max_length);

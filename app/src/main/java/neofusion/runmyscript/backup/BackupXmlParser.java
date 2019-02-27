@@ -26,8 +26,8 @@ import java.util.ArrayList;
 
 import neofusion.runmyscript.model.ScriptItem;
 
-public class BackupXmlParser {
-    public ArrayList<ScriptItem> parse(InputStreamReader inputStreamReader) throws IOException, XmlPullParserException, BackupException {
+class BackupXmlParser {
+    ArrayList<ScriptItem> parse(InputStreamReader inputStreamReader) throws IOException, XmlPullParserException, BackupException {
         XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
         XmlPullParser parser = factory.newPullParser();
         parser.setInput(inputStreamReader);
@@ -74,15 +74,19 @@ public class BackupXmlParser {
                 continue;
             }
             String tagName = parser.getName();
-            if (tagName.equals("name")) {
-                name = readNameTag(parser);
-            } else if (tagName.equals("path")) {
-                ScriptItem data = readPathTag(parser);
-                path = data.getPath();
-                type = data.getType();
-                su = data.getSu();
-            } else {
-                skip(parser);
+            switch (tagName) {
+                case "name":
+                    name = readNameTag(parser);
+                    break;
+                case "path":
+                    ScriptItem data = readPathTag(parser);
+                    path = data.getPath();
+                    type = data.getType();
+                    su = data.getSu();
+                    break;
+                default:
+                    skip(parser);
+                    break;
             }
         }
         return new ScriptItem(name, path, type, su);
@@ -102,12 +106,16 @@ public class BackupXmlParser {
         String path = readText(parser);
         parser.require(XmlPullParser.END_TAG, null, "path");
         int typeInt;
-        if (typeString.equals("cmd")) {
-            typeInt = ScriptItem.TYPE_SINGLE_COMMAND;
-        } else if (typeString.equals("path")) {
-            typeInt = ScriptItem.TYPE_PATH_TO_FILE;
-        } else {
-            typeInt = 0;
+        switch (typeString) {
+            case "cmd":
+                typeInt = ScriptItem.TYPE_SINGLE_COMMAND;
+                break;
+            case "path":
+                typeInt = ScriptItem.TYPE_PATH_TO_FILE;
+                break;
+            default:
+                typeInt = 0;
+                break;
         }
         return new ScriptItem(null, path, typeInt, su.equals("true"));
     }

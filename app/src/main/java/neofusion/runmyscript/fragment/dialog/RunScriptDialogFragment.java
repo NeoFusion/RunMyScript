@@ -35,9 +35,6 @@ public class RunScriptDialogFragment extends DialogFragment {
 
     private ScriptItem mScriptItem;
 
-    public RunScriptDialogFragment() {
-    }
-
     public static RunScriptDialogFragment newInstance(ScriptItem scriptItem) {
         RunScriptDialogFragment fragment = new RunScriptDialogFragment();
         Bundle args = new Bundle();

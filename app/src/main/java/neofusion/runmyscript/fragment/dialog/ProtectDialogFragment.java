@@ -44,9 +44,6 @@ public class ProtectDialogFragment extends DialogFragment {
     private String mNumber;
     private int mErrorState;
 
-    public ProtectDialogFragment() {
-    }
-
     public static ProtectDialogFragment newInstance() {
         return new ProtectDialogFragment();
     }
@@ -82,8 +79,8 @@ public class ProtectDialogFragment extends DialogFragment {
             positiveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    TextInputLayout textInputLayout = (TextInputLayout) dialog.findViewById(R.id.textInputLayout);
-                    EditText editText = (EditText) dialog.findViewById(R.id.editText);
+                    TextInputLayout textInputLayout = dialog.findViewById(R.id.textInputLayout);
+                    EditText editText = dialog.findViewById(R.id.editText);
                     String inputNumber = editText.getText().toString();
                     if (inputNumber.isEmpty()) {
                         textInputLayout.setError(getString(R.string.empty_field_message));
@@ -100,7 +97,7 @@ public class ProtectDialogFragment extends DialogFragment {
                 }
             });
             if (mErrorState != ERROR_STATE_NONE) {
-                TextInputLayout textInputLayout = (TextInputLayout) dialog.findViewById(R.id.textInputLayout);
+                TextInputLayout textInputLayout = dialog.findViewById(R.id.textInputLayout);
                 switch (mErrorState) {
                     case ERROR_STATE_EMPTY:
                         textInputLayout.setError(getString(R.string.empty_field_message));
@@ -116,7 +113,7 @@ public class ProtectDialogFragment extends DialogFragment {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString(KEY_NUMBER, mNumber);
         outState.putInt(KEY_ERROR_STATE, mErrorState);

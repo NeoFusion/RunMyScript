@@ -26,9 +26,6 @@ import android.support.v7.app.AlertDialog;
 import neofusion.runmyscript.R;
 
 public class AboutDialogFragment extends DialogFragment {
-    public AboutDialogFragment() {
-    }
-
     public static AboutDialogFragment newInstance() {
         return new AboutDialogFragment();
     }

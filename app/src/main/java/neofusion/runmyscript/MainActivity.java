@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements ScriptItemListFra
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mLayout = findViewById(R.id.main_layout);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportFragmentManager().addOnBackStackChangedListener(this);
         if (savedInstanceState == null) {
@@ -99,19 +99,13 @@ public class MainActivity extends AppCompatActivity implements ScriptItemListFra
         if (fragment != null) {
             if (fragment instanceof ProcessFragment) {
                 ProcessFragment processFragment = (ProcessFragment) fragment;
-                if (processFragment.hasRunningLoaders()) {
-                    return false;
-                }
+                return !processFragment.hasRunningLoaders();
             } else if (fragment instanceof ImportFragment) {
                 ImportFragment importFragment = (ImportFragment) fragment;
-                if (importFragment.hasRunningLoaders()) {
-                    return false;
-                }
+                return !importFragment.hasRunningLoaders();
             } else if (fragment instanceof ExportFragment) {
                 ExportFragment exportFragment = (ExportFragment) fragment;
-                if (exportFragment.hasRunningLoaders()) {
-                    return false;
-                }
+                return !exportFragment.hasRunningLoaders();
             }
         }
         return true;

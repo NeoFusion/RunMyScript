@@ -37,9 +37,6 @@ public class DeleteScriptDialogFragment extends DialogFragment {
     private long mId;
     private String mName;
 
-    public DeleteScriptDialogFragment() {
-    }
-
     public static DeleteScriptDialogFragment newInstance(ScriptItem scriptItem) {
         DeleteScriptDialogFragment fragment = new DeleteScriptDialogFragment();
         Bundle args = new Bundle();

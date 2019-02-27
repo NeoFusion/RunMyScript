@@ -29,6 +29,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -74,7 +75,7 @@ public class BackupHelper {
         return files;
     }
 
-    public String exportToFile(ArrayList<ScriptItem> items) throws IOException, BackupException {
+    public String exportToFile(ArrayList<ScriptItem> items) throws BackupException {
         String xmlString;
         try {
             BackupXmlCreator xmlCreator = new BackupXmlCreator();
@@ -103,9 +104,9 @@ public class BackupHelper {
         OutputStreamWriter outputStreamWriter = null;
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(exportFile);
-            outputStreamWriter = new OutputStreamWriter(fileOutputStream, "UTF-8");
+            outputStreamWriter = new OutputStreamWriter(fileOutputStream, StandardCharsets.UTF_8);
             outputStreamWriter.write(xmlString);
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new BackupException(mContext.getString(R.string.error_unknown));
         } finally {
             closeQuietly(outputStreamWriter);
@@ -116,7 +117,7 @@ public class BackupHelper {
 
     public ArrayList<ScriptItem> importFromFile(String selectedItem) throws XmlPullParserException, IOException, BackupException {
         File importFile = new File(mAppFolder, selectedItem);
-        ArrayList<ScriptItem> scriptItems = null;
+        ArrayList<ScriptItem> scriptItems;
         InputStreamReader inputStreamReader = null;
         try {
             FileInputStream fileInputStream = new FileInputStream(importFile);
