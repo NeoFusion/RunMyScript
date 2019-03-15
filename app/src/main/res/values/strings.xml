@@ -48,7 +48,7 @@
     <string name="button_ok">OK</string>
     <string name="button_run">Run</string>
     <string name="about_title">About RunMyScript</string>
-    <string name="about_text">RunMyScript 1.3.0\n© NeoFusion, 2013&#8211;2016</string>
+    <string name="about_text">RunMyScript 1.4.0\n© NeoFusion, 2013&#8211;2019</string>
     <string name="empty_field_message">Empty values are not allowed!</string>
     <string name="code_mismatch_message">Code does not match!</string>
     <string name="max_message">This value is too long. It should have %1$d characters or less</string>
