@@ -18,7 +18,8 @@ package neofusion.runmyscript.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 
 public class ScriptItem implements Parcelable {
     public static final int TYPE_SINGLE_COMMAND = 1;
